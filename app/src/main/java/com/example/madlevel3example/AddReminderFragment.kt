@@ -17,8 +17,7 @@ import kotlinx.android.synthetic.main.fragment_add_reminder.*
  */
 
 const val REQ_REMINDER_KEY = "req_reminder"
-const val BUNDLE_REMINDER_KEY_NAME = "bundle_reminder"
-const val BUNDLE_REMINDER_KEY_URL = "bundle_reminder2"
+const val BUNDLE_REMINDER_KEY = "bundle_reminder"
 
 class AddReminderFragment : Fragment() {
 
@@ -36,21 +35,23 @@ class AddReminderFragment : Fragment() {
             onAddReminder()
         }
     }
-
     private fun onAddReminder() {
         val reminderText = etReminder.text.toString()
-        val urlText = etUrl.text.toString()
 
-        if (reminderText.isNotBlank() && urlText.isNotBlank()) {
-            setFragmentResult(
-                REQ_REMINDER_KEY, bundleOf(
-                    Pair(BUNDLE_REMINDER_KEY_NAME, reminderText),
-                    Pair(BUNDLE_REMINDER_KEY_URL, urlText)
-                )
-            )
+        if (reminderText.isNotBlank()) {
+            //set the data as fragmentResult, we are listening for REQ_REMINDER_KEY in RemindersFragment!
+            setFragmentResult(REQ_REMINDER_KEY, bundleOf(Pair(BUNDLE_REMINDER_KEY, reminderText)))
+
+            //"pop" the backstack, this means we destroy
+            //this fragment and go back to the RemindersFragment
             findNavController().popBackStack()
+
         } else {
-            Toast.makeText(activity, R.string.not_valid_reminder, Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                activity,
+                R.string.not_valid_reminder, Toast.LENGTH_SHORT
+            ).show()
         }
     }
+
 }

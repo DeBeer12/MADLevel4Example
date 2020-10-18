@@ -3,27 +3,19 @@ package com.example.madlevel3example
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.madlevel3example.R
 import com.example.madlevel3example.Reminder
 import kotlinx.android.synthetic.main.item_reminder.view.*
 
 
-class ReminderAdapter(private val reminders: List<Reminder>) :
-    RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
-    var onItemClick: ((Reminder) -> Unit)? = null
+class ReminderAdapter(private val reminders: List<Reminder>) : RecyclerView.Adapter<ReminderAdapter.ViewHolder>(){
+
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        init {
-            itemView.setOnClickListener {
-                onItemClick?.invoke(reminders[adapterPosition])
-            }
-        }
 
         fun databind(reminder: Reminder) {
             itemView.tvReminder.text = reminder.reminderText
-            itemView.tvUrl.text = reminder.urlText
         }
     }
 
